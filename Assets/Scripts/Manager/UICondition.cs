@@ -7,6 +7,8 @@ public class UICondition : MonoBehaviour
     public Condition attackPoint;
     public Condition Exp;
     public Condition Level;
+    public Condition Gold;
+    public Condition Hp;
 
     private void Start()
     {
