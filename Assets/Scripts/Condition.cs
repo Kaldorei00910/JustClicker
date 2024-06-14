@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +12,7 @@ public class Condition : MonoBehaviour
     public float startValue;
     public float maxValue;
     public Image uiBar;
+    public TextMeshProUGUI Txt;
 
     private void Start()
     {
@@ -39,5 +42,16 @@ public class Condition : MonoBehaviour
         {
             uiBar.fillAmount = GetPercentage();
         }
+
+        if (Txt != null)
+        {
+            Txt.text = curValue.ToString();
+        }
+    }
+
+    public void AtkUp()
+    {
+        curValue = curValue * 4;
+        UiUpdate();
     }
 }

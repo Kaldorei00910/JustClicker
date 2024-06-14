@@ -12,7 +12,6 @@ public class Enemy : MonoBehaviour
 
     float maxHp = 2;
     float hp = 2;
-    float exp = 4;
     float level = 1;
     float gold = 2;
 
@@ -23,7 +22,6 @@ public class Enemy : MonoBehaviour
 
     public void Attacked()
     {
-        Debug.Log("공격받음");
         hp-=(GameManager.Instance.Player.Condition.uiCondition.attackPoint.curValue);
 
         if(hp < 0)
@@ -35,7 +33,8 @@ public class Enemy : MonoBehaviour
 
     public void Dead()
     {
-        GameManager.Instance.Player.Condition.GetExpAndGold(exp,gold);
+        GameManager.Instance.Player.Condition.uiCondition.Gold.Add(gold);
+
         level+=1;
 
         //TODO : 이미지 변경
