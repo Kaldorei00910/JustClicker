@@ -1,18 +1,25 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
     public Image uiBar;
+    public TextMeshProUGUI levelTxt;
 
     float maxHp = 2;
     float hp = 2;
     float exp = 4;
     float level = 1;
     float gold = 2;
+
+    private void OnMouseDown()
+    {
+        Attacked();
+    }
 
     public void Attacked()
     {
@@ -42,6 +49,7 @@ public class Enemy : MonoBehaviour
     public void UiUpdate()
     {
         uiBar.fillAmount = GetPercentage();
+        levelTxt.text = "LV. "+ level;
     }
 
     private float GetPercentage()

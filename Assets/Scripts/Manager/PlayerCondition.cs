@@ -15,11 +15,26 @@ public class PlayerCondition : MonoBehaviour
     {
         exp.Add(expAmount);
         gold.Add(goldAmount);
+
+        if(exp.curValue > exp.maxValue)
+        {
+            //렙업 가능함을 표시하기
+        }
     }
 
     public void LevelUp()
     {
-
+        //렙업 실행시 스탯 변경
+        exp.curValue = 0;
+        level.Add(1);
+        if(level.curValue < 16) 
+        {
+            Mathf.Floor((5 + level.curValue) * Mathf.Pow((float)1.07, level.curValue) - 1);
+        }
+        else
+        {
+            Mathf.Floor(20 * Mathf.Pow((float)1.07, level.curValue) - 1);
+        }
     }
 
 }
