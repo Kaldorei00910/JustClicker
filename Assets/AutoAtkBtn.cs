@@ -15,7 +15,7 @@ public class AutoAtkBtn : MonoBehaviour
     {
         if(isAutoOn)
         {
-            fillImage.fillAmount += Time.deltaTime / GameManager.Instance.Player.Condition.uiCondition.AutoAtkTime.curValue;
+            fillImage.fillAmount += Time.deltaTime / (float)GameManager.Instance.Player.Condition.allStats.AutoAtkTime.curValue;
             if(fillImage.fillAmount >= 1)
             {
                 fillImage.fillAmount = 0;

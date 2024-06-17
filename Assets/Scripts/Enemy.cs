@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,10 +21,10 @@ public class Enemy : MonoBehaviour
     public List<Sprite> Monsters;
     public Transform ParticleSummonPoint;
 
-    float maxHp = 2;
-    float hp = 2;
+    BigInteger maxHp = 2;
+    BigInteger hp = 2;
     float level = 1;
-    float gold = 2;
+    BigInteger gold = 2;
 
     bool isAutoOn = false;
 
@@ -37,11 +38,11 @@ public class Enemy : MonoBehaviour
 
     public void Attacked(AttackWay atkway)
     {
-        hp-=(GameManager.Instance.Player.Condition.uiCondition.attackPoint.curValue);
+        hp -= (GameManager.Instance.Player.Condition.uiCondition.attackPoint.curValue);
         GameObject obj = GameManager.Instance.ObjectPool.SpawnFromPool("Effect");
         if (atkway == AttackWay.MOUSEHIT)
         {
-            obj.transform.position = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+            obj.transform.position = Camera.main.ScreenToWorldPoint(new UnityEngine.Vector2(Input.mousePosition.x, Input.mousePosition.y));
         }
         else
         {
@@ -58,15 +59,15 @@ public class Enemy : MonoBehaviour
 
     public void Dead()
     {
-        GameManager.Instance.Player.Condition.uiCondition.Gold.Add(gold);
+        GameManager.Instance.Player.Condition.uiCondition.Gold.Add((BigInteger)gold);
 
         level+=1;
         monsterSprite.sprite = Monsters[UnityEngine.Random.Range(0, 4)];
-        hp = 10 * (level - 1 + Mathf.Pow((float)1.55, level - 1));//클리커 히어로즈 공식 이용
+        hp = (BigInteger)(10 * (level - 1 + Mathf.Pow((float)1.55, level - 1)));//클리커 히어로즈 공식 이용
         //https://clickerheroes.fandom.com/wiki/Formulas#Monster_HP_for_levels
-        maxHp = hp;
+        maxHp = (BigInteger)hp;
 
-        gold += hp/15;//TODO : 드랍 골드량 수정하기
+        gold = gold + (hp / 15);//TODO : 드랍 골드량 수정하기
     }
 
     public void UiUpdate()
@@ -77,14 +78,14 @@ public class Enemy : MonoBehaviour
 
     private float GetPercentage()
     {
-        return hp / maxHp;
+        return ((float)hp / (float)maxHp);
     }
 
     IEnumerator AutoAttack()
     {
         while(true)
         {
-            yield return new WaitForSeconds(GameManager.Instance.Player.Condition.uiCondition.AutoAtkTime.curValue);
+            yield return new WaitForSeconds(GameManager.Instance.Player.Condition.allStats.AutoAtkTime.curValue);
             Attacked(AttackWay.AUTOHIT);
         }
     }

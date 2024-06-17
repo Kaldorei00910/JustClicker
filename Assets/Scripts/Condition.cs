@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -8,31 +9,31 @@ using UnityEngine.UI;
 
 public class Condition : MonoBehaviour
 {
-    public float curValue;
+    public BigInteger curValue;
     public float startValue;
-    public float maxValue;
+    public BigInteger maxValue;
     public Image uiBar;
     public TextMeshProUGUI Txt;
 
     private void Start()
     {
-        curValue = startValue;
+        curValue = (BigInteger)startValue;
     }
 
     private float GetPercentage()
     {
-        return curValue / maxValue;
+        return (float)(curValue / maxValue);
     }
 
-    public void Add(float value)
+    public void Add(BigInteger value)
     {
-        curValue += value;
+        curValue = BigInteger.Add(curValue, value);
         UiUpdate();
     }
 
-    public void Subtract(float value)
+    public void Subtract(BigInteger value)
     {
-        curValue = Mathf.Max(curValue - value, 0);
+        curValue = (BigInteger)Mathf.Max((float)BigInteger.Subtract(curValue,value), 0);
         UiUpdate();
     }
 
