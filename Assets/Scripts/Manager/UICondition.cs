@@ -8,6 +8,7 @@ public class UICondition : MonoBehaviour
     public Condition Level;
     public Condition Gold;
     public Condition Hp;
+    public Condition AutoAtkTime;
 
     private void Start()
     {

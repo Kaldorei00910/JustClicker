@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 
     private Player _player;
     public Player Player { get { return _player; } set { _player = value; } }
+    public ObjectPool ObjectPool { get; private set; }
+
 
 
     public static GameManager Instance
@@ -27,6 +29,8 @@ public class GameManager : MonoBehaviour
         if(_instance == null)
         {
             _instance = this;
+            ObjectPool = GetComponent<ObjectPool>();
+
             DontDestroyOnLoad(gameObject);
         }
         else

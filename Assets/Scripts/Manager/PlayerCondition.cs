@@ -10,7 +10,7 @@ public class PlayerCondition : MonoBehaviour
     Condition level {  get { return uiCondition.Level; } } 
     Condition gold { get { return uiCondition.Gold; } }
 
-
+    Condition autoAtkTime { get { return uiCondition.AutoAtkTime; } }
     
 
 }
