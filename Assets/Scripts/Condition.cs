@@ -15,6 +15,8 @@ public class Condition : MonoBehaviour
     public Image uiBar;
     public TextMeshProUGUI Txt;
 
+    private string[] BigIntegerUnitArr = new string[] {"","K","M","B","Qa","Qi","Sx","Sp","O","N","D","Ud","Dd","Td","Qad","Qid","Sxd"};
+
     private void Start()
     {
         curValue = (BigInteger)startValue;
@@ -46,9 +48,30 @@ public class Condition : MonoBehaviour
 
         if (Txt != null)
         {
-            Txt.text = curValue.ToString();
+            Txt.text = GetBigIntegerText(curValue);
         }
     }
+    private string GetBigIntegerText(BigInteger value)//단위로 끊어서 보여주는 함수
+    {
+        int placeN = 3;
+        List<int> numList = new List<int>();
+        int p = (int)Mathf.Pow(10, placeN);
+
+        do
+        {
+            numList.Add((int)(value % p));
+            value /= p;
+        }
+        while (value >= 1);
+        string returnStr = "";
+        for(int i = 0;i < numList.Count; i++)
+        {
+            returnStr = numList[i] + BigIntegerUnitArr[i];//반복문을 돌릴 필요는 없음, 유닛배열을 넘어가면 오류발생,
+            //위 코드 마지막에 + returnStr을 하여 123M456K789 처럼 표시 가능
+        }
+        return returnStr;
+    }
+
 
     public void AtkUp()
     {
